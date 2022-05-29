@@ -4,8 +4,8 @@ plugins {
     id(Plugins.KOTLIN_PARCELIZE)
     id(Plugins.KAPT)
     id(Plugins.SAFE_ARGS)
-    id(Plugins.GMS_SERVICES)
-    id(Plugins.CRASHLYTICS)
+//    id(Plugins.GMS_SERVICES)
+//    id(Plugins.CRASHLYTICS)
     id(Plugins.DAGGER_HILT)
 }
 
@@ -53,6 +53,20 @@ android {
         jvmTarget = "11"
     }
 
+    packagingOptions {
+        exclude ("META-INF/gradle/incremental.annotation.processors")
+    }
+
+//    packagingOptions {
+//        pickFirst ("META-INF/AL2.0")
+//        pickFirst ("META-INF/LGPL2.1")
+//    }
+//    packagingOptions {
+//        exclude("META-INF/LICENSE")
+//        exclude("META-INF/*.properties")
+//        exclude ("META-INF/AL2.0")
+//        exclude ("META-INF/LGPL2.1")
+//    }
 
 }
 
@@ -107,11 +121,10 @@ dependencies {
     implementation(Libs.WORK)
     implementation("androidx.startup:startup-runtime:1.1.0")
 
-    implementation(Libs.FIREBASE_DYNAMIC_LINKS)
-    implementation(Libs.FIREBASE_CRASHLYTICS)
-    implementation(Libs.FIREBASE_MESSAGING)
-    implementation(Libs.FIREBASE_AUTH)
-    implementation(Libs.FIREBASE_CORE)
+//    implementation(Libs.FIREBASE_CRASHLYTICS)
+//    implementation(Libs.FIREBASE_MESSAGING)
+//    implementation(Libs.FIREBASE_AUTH)
+//    implementation(Libs.FIREBASE_CORE)
 
     implementation(Libs.PLAY_CORE)
     implementation(Libs.AUTOFILL)
