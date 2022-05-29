@@ -50,10 +50,8 @@ class MainActivity : AppCompatActivity() {
         selectedViewId: Int,
         currentViewId: Int,
     ): NavOptions {
-
         val selectedViewNumber = getNumberByViewId(selectedViewId)
         val currentViewNumber = getNumberByViewId(currentViewId)
-
         return getNavigationsOptionsByViewId(selectedViewNumber, currentViewNumber)
     }
 

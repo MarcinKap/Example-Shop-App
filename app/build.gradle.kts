@@ -172,4 +172,5 @@ dependencies {
 
 
     implementation("com.google.dagger:hilt-android-compiler:${Versions.HILT}")
+
 }

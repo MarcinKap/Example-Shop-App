@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.exampleshop.ui.base.ComposeFragment
+import com.example.exampleshop.ui.home.compose.HomeFragmentComposeView
 
 
 class HomeFragment : ComposeFragment() {
@@ -19,14 +20,7 @@ class HomeFragment : ComposeFragment() {
         super.onViewStateRestored(savedInstanceState)
         binding.mainComposeView.setContent {
             MaterialTheme() {
-                Surface() {
-
-                    Box(modifier = Modifier
-                        .size(100.dp)
-                        .background(Color.Green)){
-                        Text(text = "Home Fragment")
-                    }
-                }
+                HomeFragmentComposeView()
             }
         }
     }
