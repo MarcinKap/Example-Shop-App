@@ -6,9 +6,8 @@ data class Category(
     val id: Long,
     val categoryName: String,
     val categoryIcon: Int
-){
+) {
     companion object {
-
         fun getDefaultList(): List<Category> {
             return listOf(
                 Category(
@@ -40,10 +39,8 @@ data class Category(
                     id = 6,
                     categoryName = "Promotions",
                     categoryIcon = R.drawable.ic_glasses_306695
-                ),
-
                 )
-
+            )
         }
     }
 

@@ -1,80 +1,88 @@
 package com.example.exampleshop.ui.mainActivity.compose
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.exampleshop.R
+import com.example.exampleshop.models.BottomNavItem
 
 @Composable
 fun BottomNavCompose(
     openFragment: (Int) -> Unit,
     selectedId: Int
 ) {
-    val selectedIcon = rememberSaveable { mutableStateOf(selectedId) }
+    val selectedFragment = rememberSaveable { mutableStateOf(selectedId) }
 
     changeSelectedIcon(
-        changeSelectedIcon = { selectedIcon.value = it },
+        changeSelectedIcon = { selectedFragment.value = it },
         selectedId = selectedId
     )
+
+    val bottomNavItemList = listOf(
+        BottomNavItem(
+            destination = R.id.homeFragment,
+            icon = painterResource(id = R.drawable.baseline_home_black_24dp)
+        ),
+        BottomNavItem(
+            destination = R.id.searchFragment,
+            icon = painterResource(id = R.drawable.baseline_search_black_24dp)
+        ),
+        BottomNavItem(
+            destination = R.id.shoppingCartFragment,
+            icon = painterResource(id = R.drawable.baseline_shopping_cart_black_24dp)
+        ),
+        BottomNavItem(
+            destination = R.id.favouritesFragment,
+            icon = painterResource(id = R.drawable.baseline_star_black_24dp)
+        ),
+        BottomNavItem(
+            destination = R.id.userSettingsFragment,
+            icon = painterResource(id = R.drawable.baseline_person_black_24dp)
+        ),
+    )
+
+
+
 
     Surface(elevation = 4.dp) {
         Column {
             Divider(color = colorResource(id = R.color.icon_color))
-            Row(
-                modifier = Modifier.height(56.dp),
-                verticalAlignment = Alignment.CenterVertically
+            BottomNavigation(
+                modifier = Modifier.weight(1f),
+                backgroundColor = Color.White
             ) {
-                CustomIconButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 12.dp),
-                    painter = painterResource(id = R.drawable.baseline_home_black_24dp),
-                    selected = selectedIcon.value == R.id.homeFragment,
-                    onClick = { openFragment(R.id.homeFragment) }
-                )
-                CustomIconButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 12.dp),
-                    painter = painterResource(id = R.drawable.baseline_search_black_24dp),
-                    selected = selectedIcon.value == R.id.searchFragment,
-                    onClick = { openFragment(R.id.searchFragment) }
-                )
-                CustomIconButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 12.dp),
-                    painter = painterResource(id = R.drawable.baseline_shopping_cart_black_24dp),
-                    selected = selectedIcon.value == R.id.shoppingCartFragment,
-                    onClick = { openFragment(R.id.shoppingCartFragment) }
-                )
-                CustomIconButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 12.dp),
-                    painter = painterResource(id = R.drawable.baseline_star_black_24dp),
-                    selected = selectedIcon.value == R.id.favouritesFragment,
-                    onClick = { openFragment(R.id.favouritesFragment) }
-                )
-                CustomIconButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 12.dp),
-                    painter = painterResource(id = R.drawable.baseline_person_black_24dp),
-                    selected = selectedIcon.value == R.id.userSettingsFragment,
-                    onClick = { openFragment(R.id.userSettingsFragment) }
-                )
+                bottomNavItemList.forEach {
+                    val isSelected = selectedFragment.value == it.destination
+                    BottomNavigationItem(
+                        selected = isSelected,
+                        onClick = { openFragment(it.destination) },
+                        icon = {
+                            Icon(
+                                painter = it.icon,
+                                contentDescription = null,
+                                tint = if (isSelected) colorResource(id = R.color.primary) else colorResource(
+                                    id = R.color.icon_color
+                                )
+                            )
+                        }
+                    )
+                }
             }
+
         }
+
+
     }
 }
 
@@ -83,46 +91,6 @@ fun BottomNavCompose(
 fun BottomNavComposePreview() {
     MaterialTheme {
         BottomNavCompose(openFragment = {}, selectedId = 0)
-    }
-}
-
-
-@Composable
-fun CustomIconButton(
-    modifier: Modifier = Modifier,
-    painter: Painter,
-    selected: Boolean,
-    onClick: () -> Unit
-) {
-    val color =
-        if (selected) colorResource(id = R.color.primary) else colorResource(id = R.color.icon_color)
-
-    IconButton(
-        modifier = modifier,
-        onClick = onClick
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = painter,
-                contentDescription = null,
-                tint = color
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CustomIconButtonPreview() {
-    MaterialTheme {
-        CustomIconButton(
-            painter = painterResource(id = R.drawable.baseline_home_black_24dp),
-            selected = false,
-            onClick = {}
-        )
     }
 }
 
